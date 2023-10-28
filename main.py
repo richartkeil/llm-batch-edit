@@ -45,7 +45,6 @@ Directly output the WHOLE changed file, DO NOT output anything else.
         model=model, messages=[system_message, user_message]
     )
     output = response.choices[0].message.content
-    print(response.choices[0].message)
     tokens = response.usage.total_tokens
 
     with open(filename, "w") as file:
@@ -55,11 +54,37 @@ Directly output the WHOLE changed file, DO NOT output anything else.
 
 
 @click.command()
-@click.option("-l", "--filelist", required=True, help="File containing a list of filenames to apply the change to.", type=click.Path(exists=True))
-@click.option("-i", "--instruction", required=True, prompt="Instruction to be followed for a file", help="Instruction to follow.")
-@click.option("-o", "--example_original", required=True, help="File containing an example of an original file.", type=click.Path(exists=True))
-@click.option("-c", "--example_changed", required=True, help="File containing an example of the changed original file.", type=click.Path(exists=True))
-@click.option("-m", "--model", default="gpt-4", help="OpenAI model to use for the change.")
+@click.option(
+    "-l",
+    "--filelist",
+    required=True,
+    help="File containing a list of filenames to apply the change to.",
+    type=click.Path(exists=True),
+)
+@click.option(
+    "-i",
+    "--instruction",
+    required=True,
+    prompt="Instruction to be followed for a file",
+    help="Instruction to follow.",
+)
+@click.option(
+    "-o",
+    "--example_original",
+    required=True,
+    help="File containing an example of an original file.",
+    type=click.Path(exists=True),
+)
+@click.option(
+    "-c",
+    "--example_changed",
+    required=True,
+    help="File containing an example of the changed original file.",
+    type=click.Path(exists=True),
+)
+@click.option(
+    "-m", "--model", default="gpt-4", help="OpenAI model to use for the change."
+)
 def run(filelist, instruction, example_original, example_changed, model):
     """Apply a change to a list of files, powered by OpenAI's LLMs."""
     with open(filelist, "r") as file:
@@ -71,8 +96,7 @@ def run(filelist, instruction, example_original, example_changed, model):
 
     for line in filelist:
         filename = line.strip()
-        if os.path.isfile(filename):
-            apply_change(filename, instruction, example_original, example_changed, model)
-        else:
+        if not os.path.isfile(filename):
             print(f"File {filename} does not exist.")
-
+            continue
+        apply_change(filename, instruction, example_original, example_changed, model)
