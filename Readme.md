@@ -4,6 +4,8 @@ CLI tool using LLMs to apply an instruction to a list of files while considering
 
 Useful if you have a list of files that all require a similar change, but differ in ways that would usually require manual processing.
 
+Be aware that the tool changes files in place, so ideally you have version control setup. This makes it also easy to proof-read the changes before committing them.
+
 ## Usage
 
 Install the package with `pip install .` or `pip install -e .` for development.
@@ -22,4 +24,18 @@ Options:
   -c, --example_changed PATH   File containing an example of the changed original file.  [required]
   -m, --model TEXT             OpenAI model to use for the change.
   --help                       Show this message and exit.
+```
+
+## Example
+
+In the `example/src` directory we have three files that all contain a function with a number in its name. We want to extend a print statement in each function so that it also prints the next number after the one referenced in the function name. Basically just a task that would be hard to automate with normal refactoring tools.
+
+Therefore, we can simply prepare an example of the original file (`example/original.py`) and an example of the changed file (`example/changed.py`), add all the files that should be changed to a list (`example/filelist`) and run the following command:
+
+```sh
+llm-bulk-change \
+    --filelist ./example/filelist \
+    --instruction "In the print statement, add (next number is X) where X is the next number after the one referenced in the function name" \
+    --example_original ./example/original.py \
+    --example_changed ./example/changed.py
 ```
