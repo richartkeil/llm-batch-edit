@@ -49,7 +49,7 @@ Directly output the WHOLE changed file, DO NOT output anything else.
     tokens = response.usage.total_tokens
 
     with open(filename, "w") as file:
-        file.write(output.strip('`'))
+        file.write(output.strip("`").strip() + "\n")
 
     print(f"Applied change to {filename} ({tokens} Tokens).")
 
