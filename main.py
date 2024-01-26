@@ -1,9 +1,9 @@
 import os
 import click
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 from openai import OpenAI
 
-load_dotenv()
+load_dotenv(find_dotenv(usecwd=True))
 
 client = OpenAI()
 
