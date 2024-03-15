@@ -1,4 +1,4 @@
-# LLM Bulk Change
+# LLM Batch Edit
 
 CLI tool using LLMs to apply an instruction to a list of files while considering the context of each file.
 
@@ -13,7 +13,7 @@ Install the package with `pip install .` or `pip install -e .` for development.
 Make sure to store your OpenAI API key in an `OPENAI_API_KEY` environment variable.
 
 ```sh
-Usage: llm-bulk-change [OPTIONS]
+Usage: llm-batch-edit [OPTIONS]
 
   Apply a change to a list of files, powered by OpenAI's LLMs.
 
@@ -33,7 +33,7 @@ In the `example/src` directory we have three files that all contain a function w
 Therefore, we can simply prepare an example of the original file (`example/original.py`) and an example of the changed file (`example/changed.py`), add all the files that should be changed to a list (`example/filelist`) and run the following command:
 
 ```sh
-llm-bulk-change \
+llm-batch-edit \
     --filelist ./example/filelist \
     --instruction "In the print statement, add (next number is X) where X is the next number after the one referenced in the function name" \
     --example_original ./example/original.py \

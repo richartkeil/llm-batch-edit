@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name='llm-bulk-change',
+    name='llm-batch-edit',
     version='0.1.0',
     py_modules=['main'],
     install_requires=[
@@ -11,7 +11,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'llm-bulk-change = main:run',
+            'llm-batch-edit = main:run',
         ],
     },
 )
