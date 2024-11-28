@@ -39,3 +39,9 @@ llm-batch-edit \
     --example_original ./example/original.py \
     --example_changed ./example/changed.py
 ```
+
+### Roadmap
+
+- add option to only pass relevant file parts to llm (e.g. diff of original and changed file) to reduce cost and time
+- add groq API support for faster + cheaper inference
+- nicer cli progress (e.g. spinner + progress bar)
